@@ -1,34 +1,42 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Globalization;
 
-ICollection<string> dutyHistoryList = new List<string>();
-
-decimal GetDuty(decimal price)
-{
-    return price > 200 ? (price - 200) * (decimal) 0.15 : 0;
-}
-
-string GetDutyHistory(decimal price)
-{
-    decimal duty = GetDuty(price);
-    string history = $"Размер таможенной пошлины: {duty}€\n\nИстория просмотра:\n";
-    foreach (string historyDuty in dutyHistoryList)
-        history += historyDuty;
-    dutyHistoryList.Add($"Цена: {price}€; Пошлина: {duty}€\n");
-    return history;
-}
-
-string GetDate(string language)
-{
-    return DateTime.Now.ToString("D", new CultureInfo(language)) + ' ' + DateTime.Now.ToLongTimeString();;
-}
+ConcurrentBag<Product> productList = new ConcurrentBag<Product>();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<IDate, CurrentDate>();
 var app = builder.Build();
+var date = app.Services.GetService<IDate>();
 
-app.MapGet("/customs_duty", (decimal price) => GetDutyHistory(price));
+string ShowProducts(IDate date)
+{
+    string products = "";
+    if (date.GetDate().DayOfWeek == DayOfWeek.Saturday || date.GetDate().DayOfWeek == DayOfWeek.Sunday)
+    {
+        foreach (Product product in productList)
+        {
+            products += $"Type: {product.Type}; Name: {product.Name}; Price: {product.Price * (decimal)1.5}\n";
+        }
+    }
+    else
+    {
+        foreach (Product product in productList)
+        {
+            products += $"Type: {product.Type}; Name: {product.Name}; Price: {product.Price}\n";
+        }
+    }
 
-app.MapGet("/date", (string language) => GetDate(language));
+    return products;
+}
+
+productList.Add(new Product("Еда", "Молоко", 1000));
+productList.Add(new Product("Еда", "Яблоко", 1200));
+productList.Add(new Product("Хоз. товары", "Мыло", 150));
+productList.Add(new Product("Техника", "Телевизор", 60000));
+productList.Add(new Product("Техника", "Кофеварка", 8000));
+
+app.MapGet("/catalog", () => ShowProducts(new CurrentDate()));
 
 app.Run();
