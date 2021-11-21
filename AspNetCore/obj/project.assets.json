@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Student_2\\.nuget\\packages\\": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Student_2\\RiderProjects\\AspNetCore\\AspNetCore\\AspNetCore.csproj",
+      "projectUniqueName": "D:\\Visual Projects\\C# projects\\AspNetCore\\AspNetCore\\AspNetCore.csproj",
       "projectName": "AspNetCore",
-      "projectPath": "C:\\Users\\Student_2\\RiderProjects\\AspNetCore\\AspNetCore\\AspNetCore.csproj",
-      "packagesPath": "C:\\Users\\Student_2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Student_2\\RiderProjects\\AspNetCore\\AspNetCore\\obj\\",
+      "projectPath": "D:\\Visual Projects\\C# projects\\AspNetCore\\AspNetCore\\AspNetCore.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "D:\\Visual Projects\\C# projects\\AspNetCore\\AspNetCore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Student_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

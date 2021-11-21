@@ -8,7 +8,6 @@ ConcurrentBag<Product> productList = new ConcurrentBag<Product>();
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IDate, CurrentDate>();
 var app = builder.Build();
-var date = app.Services.GetService<IDate>();
 
 string ShowProducts(IDate date)
 {
