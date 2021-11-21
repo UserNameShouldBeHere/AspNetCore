@@ -5,7 +5,7 @@ using System.Globalization;
 ICollection<string> dutyHistoryList = new List<string>();
 string getDutyHistory(int price)
 {
-    double duty = price > 200 ? price * 0.15 : 0;
+    double duty = price > 200 ? (price - 200) * 0.15 : 0;
     string history = $"Размер таможенной пошлины: {duty}€\n\nИстория просмотра:\n";
     foreach (string historyDuty in dutyHistoryList)
         history += historyDuty;
