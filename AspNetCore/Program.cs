@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 
 ICollection<string> dutyHistoryList = new List<string>();
-string getDutyHistory(int price)
+
+decimal GetDuty(decimal price)
 {
-    double duty = price > 200 ? (price - 200) * 0.15 : 0;
+    return price > 200 ? (price - 200) * (decimal) 0.15 : 0;
+}
+
+string GetDutyHistory(decimal price)
+{
+    decimal duty = GetDuty(price);
     string history = $"Размер таможенной пошлины: {duty}€\n\nИстория просмотра:\n";
     foreach (string historyDuty in dutyHistoryList)
         history += historyDuty;
@@ -13,7 +19,7 @@ string getDutyHistory(int price)
     return history;
 }
 
-string getDate(string language)
+string GetDate(string language)
 {
     return DateTime.Now.ToString("D", new CultureInfo(language)) + ' ' + DateTime.Now.ToLongTimeString();;
 }
@@ -21,8 +27,8 @@ string getDate(string language)
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/customs_duty", (int price) => getDutyHistory(price));
+app.MapGet("/customs_duty", (decimal price) => GetDutyHistory(price));
 
-app.MapGet("/date", (string language) => getDate(language));
+app.MapGet("/date", (string language) => GetDate(language));
 
 app.Run();
